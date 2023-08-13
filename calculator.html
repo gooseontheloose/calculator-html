@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .header p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .header a {
+            color: #66c2ff;
+            text-decoration: none;
+        }
+        .header a:hover {
+            text-decoration: underline;
+        }
+        .header #githubButton {
+            display: inline-block;
+            background-color: #66c2ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .header #githubButton:hover {
+            background-color: #3385ff;
+        }
+        .calculator {
+            width: 435px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            
+        }
+        .calculator input[type="text"] {
+            grid-column: span 2;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 18px;
+        
+        }
+        .calculator .numbers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            border-right: 1px solid #ddd;
+            
+            
+        }
+        .calculator .numbers button {
+            padding: 20px; /* Adjusted for square buttons */
+            width: 80px;  /* Adjusted for square buttons */
+            height: 80px; /* Adjusted for square buttons */
+            font-size: 16px;
+            border: 1;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 20px; /* Adjust the margin here */
+            margin-left: 10px; /* Adjust the margin here */
+        }
+        .calculator .numbers button:nth-child(10) {
+            grid-column: 2;
+            justify-self: center;
+            
+    
+        }
+        .calculator .operators {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .calculator .operator {
+            margin: 5px 0;
+            padding: 40px; /* Adjusted for square buttons */
+            width: 80px;  /* Adjusted for square buttons */
+            height: 80px; /* Adjusted for square buttons */
+            font-size: 16px;
+            border: 1;
+            border-radius: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #66c2ff;
+            color: #fff;
+        }
+        .calculator .operator:hover {
+            background-color: #3385ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Calculator App</h1>
+        <p>Check out my other work: <a href="https://www.rea.media/webdesign/">Other Work</a></p>
+        <a id="githubButton" href="https://github.com/gooseontheloose" target="_blank">View on GitHub</a>
+    </div>
+
+    <div class="calculator">
+        <input type="text" id="result" oninput="validateInput()" placeholder="Enter numbers">
+        <div class="numbers">
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('0')">0</button>
+        </div>
+        <div class="operators">
+            <button class="operator" onclick="appendValue('+')">+</button>
+            <button class="operator" onclick="appendValue('-')">-</button>
+            <button class="operator" onclick="appendValue('*')">*</button>
+            <button class="operator" onclick="appendValue('/')">/</button>
+            <button class="operator" onclick="clearResult()">C</button>
+            <button class="operator" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+
+        function appendValue(value) {
+            currentInput += value;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function calculate() {
+            try {
+                currentInput = eval(currentInput).toString();
+                document.getElementById('result').value = currentInput;
+            } catch (error) {
+                document.getElementById('result').value = 'Error';
+            }
+        }
+
+        function clearResult() {
+            currentInput = '';
+            document.getElementById('result').value = '';
+        }
+
+        function validateInput() {
+            let inputField = document.getElementById('result');
+            let inputValue = inputField.value;
+            if (!/^[\d+\-*/. ]*$/.test(inputValue)) {
+                inputField.value = 'Please enter numbers';
+                currentInput = '';
+            }
+        }
+    </script>
+</body>
+</html>
